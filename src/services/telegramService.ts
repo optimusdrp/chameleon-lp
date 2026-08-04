@@ -9,12 +9,11 @@ class TelegramService {
       throw new Error('A variável TELEGRAM_BOT_TOKEN não está configurada no arquivo .env.');
     }
 
-    // Mensagem interna enviada para o administrador/equipe
     const message = `🚀 *Novo Lead Capturado - Optimus DRP*\n\n` +
       `👤 *Nome:* ${name}\n` +
       `📧 *E-mail:* ${email}\n` +
       `🏢 *Empresa:* ${company}\n` +
-      `📱 *Telefone do Lead:* ${phone}\n` +
+      `📱 *Telefone:* ${phone}\n` +
       `💡 *Projeto:* ${projectType}\n\n` +
       `_Pipeline executado via Workflow Builder._`;
 
@@ -33,7 +32,7 @@ class TelegramService {
     }
 
     if (!chatId) {
-      throw new Error('Chat ID administrativo não configurado. Envie uma mensagem para o bot no Telegram.');
+      throw new Error('Chat ID administrativo não configurado.');
     }
 
     const url = `https://api.telegram.org/bot${token}/sendMessage`;
@@ -44,7 +43,6 @@ class TelegramService {
         text: message,
         parse_mode: 'Markdown',
       });
-
       return response.data;
     } catch (error: any) {
       const description = error.response?.data?.description || error.message;

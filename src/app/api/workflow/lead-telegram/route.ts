@@ -27,12 +27,9 @@ export async function POST(req: Request) {
 
     const { name, email, company, projectType, phone } = validation.data;
 
-    // Dispara a notificação administrativa interna para a equipe
     await telegramService.sendLeadNotification(name, email, company, projectType, phone);
 
     const botUsername = 'Optimus_test_bot';
-    
-    // Geramos um link limpo e direto para o bot do Telegram
     const directTelegramLink = `https://t.me/${botUsername}`;
 
     return NextResponse.json({
